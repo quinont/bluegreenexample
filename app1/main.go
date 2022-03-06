@@ -19,7 +19,7 @@ func status(w http.ResponseWriter, req *http.Request) {
 	}
     log.Printf("Someone is calling status")
     w.Header().Set("Content-Type", "application/json")
-    fmt.Fprintf(w, "{\"Server\": \"%s\", \"message\": \"This is the version v1\"}", hostname)
+    fmt.Fprintf(w, "{\"Server\": \"%s\", \"message\": \"This is the version v2\"}", hostname)
 }
 
 func main() {

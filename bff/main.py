@@ -21,6 +21,6 @@ def app1():
     if r.status_code != 200:
         return HTTPResponse(status=503, body="Error with connection to app1")
 
-    return template('<b>Server name: {{server}}</b></br>With the messaje: {{message}}', server=r.json()["Server"], message = r.json()["message"])
+    return template('<b>Server name: {{server}}</b></br>With the messaje: {{message}}</b> This is version 2', server=r.json()["Server"], message = r.json()["message"])
 
 run(host='0.0.0.0', port=8080)
