@@ -14,13 +14,13 @@ def index(name):
 def app1():
     previewVersion = request.headers.get('PreviewVersion', None)
     headers_dict=None
-    if previewVersion and previewVersion == "yes":
+    if previewVersion and previewVersion.lower() == "yes":
         headers_dict = {"PreviewVersion": "yes"}
 
     r = requests.get("http://" + DOMINIO_APP1 + PATH_APP1, headers=headers_dict)
     if r.status_code != 200:
         return HTTPResponse(status=503, body="Error with connection to app1")
 
-    return template('<b>Server name: {{server}}</b></br>With the messaje: {{message}}', server=r.json()["Server"], message = r.json()["message"])
+    return template('<b>Server name: {{server}}</b></br>With the messaje: {{message}}</b> This is version 2', server=r.json()["Server"], message = r.json()["message"])
 
 run(host='0.0.0.0', port=8080)
