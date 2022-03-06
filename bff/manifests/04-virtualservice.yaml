@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: bff-vs
+  namespace: bff
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - bff-gateway
+  http:
+  - match:
+    - headers:
+        PreviewVersion:
+          exact: "yes"
+    route:
+    - destination:
+        host: bff-new
+        port:
+          number: 8080
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: bff
+        port:
+          number: 8080
+

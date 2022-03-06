@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: app1
+  namespace: app1
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  strategy:
+    blueGreen:
+      activeService: app1
+      previewService: app1-new
+      autoPromotionEnabled: false
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: app1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: app1
+    spec:
+      containers:
+      - image: quinont/app1:v2
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /hc
+            port: http
+            scheme: HTTP
+          periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: app1
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /hc
+            port: http
+            scheme: HTTP
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 5
+      terminationGracePeriodSeconds: 30

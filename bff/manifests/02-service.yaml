@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: bff
+  name: bff
+  namespace: bff
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: http
+  selector:
+    app.kubernetes.io/name: bff
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: bff
+  name: bff-new
+  namespace: bff
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: http
+  selector:
+    app.kubernetes.io/name: bff
+  sessionAffinity: None
+  type: ClusterIP

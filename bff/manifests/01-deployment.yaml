@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: bff
+  namespace: bff
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  strategy:
+    blueGreen:
+      activeService: bff
+      previewService: bff-new
+      autoPromotionEnabled: false
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bff
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bff
+    spec:
+      containers:
+      - image: quinont/bff:v2
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DOMINIO_APP1
+          value: app1.app1
+        - name: PATH_APP1
+          value: /app1/status
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /hello/liveness
+            port: http
+            scheme: HTTP
+          periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: bff
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /hello/readiness
+            port: http
+            scheme: HTTP
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 5
+      terminationGracePeriodSeconds: 30
