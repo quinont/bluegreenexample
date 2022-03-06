@@ -14,7 +14,7 @@ def index(name):
 def app1():
     previewVersion = request.headers.get('PreviewVersion', None)
     headers_dict=None
-    if previewVersion and previewVersion == "yes":
+    if previewVersion and previewVersion.lower() == "yes":
         headers_dict = {"PreviewVersion": "yes"}
 
     r = requests.get("http://" + DOMINIO_APP1 + PATH_APP1, headers=headers_dict)
