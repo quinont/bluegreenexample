@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/name: bff
     spec:
       containers:
-      - image: quinont/bff:v2
+      - image: quinont/bff:v1
         imagePullPolicy: IfNotPresent
         env:
         - name: DOMINIO_APP1
