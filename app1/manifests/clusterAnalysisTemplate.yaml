@@ -12,7 +12,8 @@ spec:
   - name: success-rate
     successCondition: len(result) > 0 && result[0] >= 0.95
     interval: 60s
-    count: 5
+    count: 10
+    failureLimit: 6
     provider:
       prometheus:
         address: "http://prometheus.istio-system.svc.cluster.local:{{args.prometheus-port}}"
