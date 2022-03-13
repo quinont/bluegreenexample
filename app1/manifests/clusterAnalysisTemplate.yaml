@@ -10,7 +10,9 @@ spec:
     value: "9090"
   metrics:
   - name: success-rate
-    successCondition: len(result) == 0 || result[0] >= 0.95
+    successCondition: len(result) > 0 && result[0] >= 0.95
+    interval: 60s
+    count: 5
     provider:
       prometheus:
         address: "http://prometheus.istio-system.svc.cluster.local:{{args.prometheus-port}}"
