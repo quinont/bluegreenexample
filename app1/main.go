@@ -40,12 +40,12 @@ func status(w http.ResponseWriter, req *http.Request) {
     if (rand.Intn(100) < errorThresholdInt ) {
         log.Printf("Oh nooo, we have an Error here!!, help!!!!")
         w.WriteHeader(500)
-        fmt.Fprintf(w, "{\"Server\": \"%s\", \"message\": \"WE HABE A ERRO!! (v4)\"}", hostname)
+        fmt.Fprintf(w, "{\"Server\": \"%s\", \"message\": \"WE HABE A ERRO!! (v5)\"}", hostname)
         return
     }
 
     log.Printf("Someone is calling status")
-    fmt.Fprintf(w, "{\"Server\": \"%s\", \"message\": \"This is the version v4\"}", hostname)
+    fmt.Fprintf(w, "{\"Server\": \"%s\", \"message\": \"This is the version v5\"}", hostname)
 }
 
 func main() {
