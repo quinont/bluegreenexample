@@ -16,7 +16,6 @@ spec:
       postPromotionAnalysis:
         templates:
         - templateName: success-rate
-          clusterScope: true
         args:
         - name: service-name
           value: app1.app1.svc.cluster.local
@@ -29,7 +28,7 @@ spec:
         app.kubernetes.io/name: app1
     spec:
       containers:
-      - image: quinont/app1:v5
+      - image: quinont/app1:v1
         imagePullPolicy: Always
         env:
         - name: ERRORTHRESHOLD

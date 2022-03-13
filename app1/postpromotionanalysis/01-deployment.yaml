@@ -12,14 +12,14 @@ spec:
       activeService: app1
       previewService: app1-new
       autoPromotionEnabled: false
-      scaleDownDelaySeconds: 600
+      scaleDownDelaySeconds: 100
       postPromotionAnalysis:
         templates:
         - templateName: success-rate
           clusterScope: true
         args:
         - name: service-name
-          value: app1-new.app1.svc.cluster.local
+          value: app1.app1.svc.cluster.local
   selector:
     matchLabels:
       app.kubernetes.io/name: app1
@@ -29,8 +29,11 @@ spec:
         app.kubernetes.io/name: app1
     spec:
       containers:
-      - image: quinont/app1:v2
+      - image: quinont/app1:v5
         imagePullPolicy: Always
+        env:
+        - name: ERRORTHRESHOLD
+          value: "5"
         livenessProbe:
           failureThreshold: 3
           httpGet:

@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ClusterAnalysisTemplate
+kind: AnalysisTemplate
 metadata:
   name: success-rate
-  namespace: argo-rollouts
+  namespace: app1
 spec:
   args:
   - name: service-name
