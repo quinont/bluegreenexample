@@ -29,7 +29,7 @@ spec:
         app.kubernetes.io/name: app1
     spec:
       containers:
-      - image: quinont/app1:v2
+      - image: quinont/app1:v1
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
