@@ -31,6 +31,9 @@ spec:
       containers:
       - image: quinont/app1:v1
         imagePullPolicy: Always
+        env:
+        - name: ERRORTHRESHOLD
+          value: 100
         livenessProbe:
           failureThreshold: 3
           httpGet:
