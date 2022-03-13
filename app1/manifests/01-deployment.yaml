@@ -16,6 +16,7 @@ spec:
       postPromotionAnalysis:
         templates:
         - templateName: success-rate
+          clusterScope: true
         args:
         - name: service-name
           value: app1.app1.svc.cluster.local

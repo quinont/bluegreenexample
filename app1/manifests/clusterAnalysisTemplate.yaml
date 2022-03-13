@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
-kind: AnalysisTemplate
+kind: ClusterAnalysisTemplate
 metadata:
   name: success-rate
-  namespace: app1
+  namespace: argo-rollouts
 spec:
   args:
   - name: service-name
@@ -12,7 +12,7 @@ spec:
   - name: success-rate
     successCondition: len(result) > 0 && result[0] >= 0.95
     interval: 60s
-    count: 10
+    count: 5
     failureLimit: 3
     provider:
       prometheus:
