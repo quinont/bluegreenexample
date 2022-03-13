@@ -12,7 +12,7 @@ spec:
       activeService: app1
       previewService: app1-new
       autoPromotionEnabled: false
-      scaleDownDelaySeconds: 300
+      scaleDownDelaySeconds: 100
       postPromotionAnalysis:
         templates:
         - templateName: success-rate
