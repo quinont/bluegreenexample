@@ -5,10 +5,21 @@ import (
     "net/http"
     "log"
     "os"
+    "math/rand"
+    "time"
+    "strconv"
 )
 
 func hc(w http.ResponseWriter, req *http.Request) {
     fmt.Fprintf(w, "Ok")
+}
+
+func getEnv(key, fallback string) string {
+    value, exists := os.LookupEnv(key)
+    if !exists {
+        value = fallback
+    }
+    return value
 }
 
 func status(w http.ResponseWriter, req *http.Request) {
@@ -17,9 +28,24 @@ func status(w http.ResponseWriter, req *http.Request) {
 		fmt.Println(err)
 		hostname = "pedrito"
 	}
-    log.Printf("Someone is calling status")
     w.Header().Set("Content-Type", "application/json")
-    fmt.Fprintf(w, "{\"Server\": \"%s\", \"message\": \"This is the version v3\"}", hostname)
+
+    rand.Seed(time.Now().UnixNano())
+    errorThresholdStr := getEnv("ERRORTHRESHOLD", "95")
+    errorThresholdInt, err := strconv.Atoi(errorThresholdStr)
+    if err != nil {
+        errorThresholdInt = 95
+    }
+
+    if (rand.Intn(100) < errorThresholdInt ) {
+        log.Printf("Oh nooo, we have an Error here!!, help!!!!")
+        w.WriteHeader(500)
+        fmt.Fprintf(w, "{\"Server\": \"%s\", \"message\": \"WE HABE A ERRO!! (v4)\"}", hostname)
+        return
+    }
+
+    log.Printf("Someone is calling status")
+    fmt.Fprintf(w, "{\"Server\": \"%s\", \"message\": \"This is the version v4\"}", hostname)
 }
 
 func main() {
