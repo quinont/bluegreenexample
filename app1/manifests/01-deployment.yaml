@@ -33,7 +33,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: ERRORTHRESHOLD
-          value: "5"
+          value: "4"
         livenessProbe:
           failureThreshold: 3
           httpGet:
