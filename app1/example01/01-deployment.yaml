@@ -12,13 +12,6 @@ spec:
       activeService: app1
       previewService: app1-new
       autoPromotionEnabled: false
-      postPromotionAnalysis:
-        templates:
-        - templateName: success-rate
-          clusterScope: true
-        args:
-        - name: service-name
-          value: app1-new.app1.svc.cluster.local
   selector:
     matchLabels:
       app.kubernetes.io/name: app1
