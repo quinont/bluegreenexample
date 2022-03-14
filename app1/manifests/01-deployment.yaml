@@ -21,7 +21,7 @@ spec:
           clusterScope: true
         args:
         - name: issue
-          value: 1
+          value: "1"
       postPromotionAnalysis:
         templates:
         - templateName: success-rate
