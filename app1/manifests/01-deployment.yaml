@@ -21,9 +21,7 @@ spec:
           clusterScope: true
         args:
         - name: issue
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.labels['issueRelate']
+          value: 1
       postPromotionAnalysis:
         templates:
         - templateName: success-rate

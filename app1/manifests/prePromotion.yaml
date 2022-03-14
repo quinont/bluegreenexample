@@ -20,7 +20,7 @@ spec:
     provider:
       web:
         url: "http://statusapp.statusapp.svc.cluster.local:8080/api/issue/{{ args.issue }}"
-        jsonPath: "{$.[0]}"
+        jsonPath: "{$}"
         headers:
         - key: Autorization
           value: "Bearer {{ args.token }}"
