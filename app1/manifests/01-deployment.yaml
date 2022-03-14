@@ -40,7 +40,7 @@ spec:
         app.kubernetes.io/name: app1
     spec:
       containers:
-      - image: quinont/app1:v3
+      - image: quinont/app1:v1
         imagePullPolicy: Always
         env:
         - name: ERRORTHRESHOLD
