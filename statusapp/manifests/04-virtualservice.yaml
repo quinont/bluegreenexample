@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: statusapp-vs
+  namespace: statusapp
+spec:
+  hosts:
+  - "statusapp.internal.local.com"
+  gateways:
+  - statusapp-gateway
+  http:
+  - match:
+    - headers:
+        PreviewVersion:
+          exact: "yes"
+    route:
+    - destination:
+        host: statusapp-new
+        port:
+          number: 8080
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: statusapp
+        port:
+          number: 8080
+
