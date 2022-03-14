@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterAnalysisTemplate
+metadata:
+  name: prepromotion
+  namespace: argo-rollouts
+spec:
+  args:
+  - name: token
+    valueFrom:
+      secretKeyRef:
+        name: token-secret
+        key: apiToken
+  - name: issue
+  metrics:
+  - name: correctStatus
+    successCondition: result.id != "-1" && result.status == "DONE"
+    interval: 60s
+    count: 5
+    failureLimit: 5
+    provider:
+      web:
+        url: "http://statusapp.statusapp.svc.cluster.local:8080/api/issue/{{ args.issue }}"
+        jsonPath: "{$}"
+        headers:
+        - key: Autorization
+          value: "Bearer {{ args.token }}"
+        - key: Content-Type
+          value: "application/json"
+

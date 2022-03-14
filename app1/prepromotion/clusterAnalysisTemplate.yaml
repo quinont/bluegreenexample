@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterAnalysisTemplate
+metadata:
+  name: success-rate
+  namespace: argo-rollouts
+spec:
+  args:
+  - name: service-name
+  - name: prometheus-port
+    value: "9090"
+  metrics:
+  - name: success-rate
+    successCondition: len(result) > 0 && result[0] >= 0.95
+    interval: 60s
+    count: 5
+    failureLimit: 3
+    provider:
+      prometheus:
+        address: "http://prometheus.istio-system.svc.cluster.local:{{args.prometheus-port}}"
+        query: |
+          sum(irate(
+            istio_requests_total{reporter="source",destination_service=~"{{args.service-name}}",response_code!~"5.*"}[1m]
+          )) /
+          sum(irate(
+            istio_requests_total{reporter="source",destination_service=~"{{args.service-name}}"}[1m]
+          ))
