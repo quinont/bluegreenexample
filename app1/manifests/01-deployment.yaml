@@ -20,11 +20,6 @@ spec:
         - templateName: prepromotion
           clusterScope: true
         args:
-        - name: token
-          valueFrom:
-            secretKeyRef:
-              name: token-secret
-              key: apiToken
         - name: issue
           valueFrom:
             fieldRef:

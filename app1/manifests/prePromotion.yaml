@@ -6,6 +6,10 @@ metadata:
 spec:
   args:
   - name: token
+    valueFrom:
+      secretKeyRef:
+        name: token-secret
+        key: apiToken
   - name: issue
   metrics:
   - name: correctStatus
