@@ -3,6 +3,8 @@ kind: Rollout
 metadata:
   name: app1
   namespace: app1
+  labels:
+    issueRelate: 1
 spec:
   progressDeadlineSeconds: 600
   replicas: 3
@@ -13,6 +15,20 @@ spec:
       previewService: app1-new
       autoPromotionEnabled: false
       scaleDownDelaySeconds: 100
+      prePromotionAnalysis:
+        templates:
+        - templateName: prepromotion
+          clusterScope: true
+        args:
+        - name: token
+          valueFrom:
+            secretKeyRef:
+              name: token-secret
+              key: apiToken
+        - name: issue
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['issueRelate']
       postPromotionAnalysis:
         templates:
         - templateName: success-rate
