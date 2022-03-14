@@ -15,7 +15,7 @@ spec:
   - name: correctStatus
     successCondition: result.id != "-1" && result.status == "DONE"
     interval: 60s
-    count: 5
+    count: 1
     failureLimit: 5
     provider:
       web:
