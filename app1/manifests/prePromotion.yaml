@@ -19,7 +19,7 @@ spec:
     failureLimit: 5
     provider:
       web:
-        url: "statusapp.statusapp.svc.cluster.local:8080/api/issue/{{ args.issue }}"
+        url: "http://statusapp.statusapp.svc.cluster.local:8080/api/issue/{{ args.issue }}"
         jsonPath: "{$.[0]}"
         headers:
         - key: Autorization
