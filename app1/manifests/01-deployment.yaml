@@ -13,7 +13,8 @@ spec:
     blueGreen:
       activeService: app1
       previewService: app1-new
-      autoPromotionEnabled: false
+      autoPromotionEnabled: true
+      autoPromotionSeconds: 20
       scaleDownDelaySeconds: 100
       prePromotionAnalysis:
         templates:
@@ -38,7 +39,7 @@ spec:
         app.kubernetes.io/name: app1
     spec:
       containers:
-      - image: quinont/app1:v1
+      - image: quinont/app1:v2
         imagePullPolicy: Always
         env:
         - name: ERRORTHRESHOLD
