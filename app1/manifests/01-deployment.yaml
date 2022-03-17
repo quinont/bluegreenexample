@@ -7,7 +7,7 @@ metadata:
     issueRelate: 1
 spec:
   progressDeadlineSeconds: 600
-  replicas: 3
+  replicas: 1
   revisionHistoryLimit: 10
   strategy:
     blueGreen:
